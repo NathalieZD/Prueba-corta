@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prueba_2/Paginas/services/pacientes.dart';
+import 'package:prueba_2/Paginas/services/doctores.dart';
 
 class WelcomeScreen extends StatelessWidget {
   @override
@@ -8,10 +10,29 @@ class WelcomeScreen extends StatelessWidget {
         title: Text('Bienvenido'),
       ),
       body: Center(
-        child: Text(
-          '¡Registro exitoso! Bienvenido a la aplicación.',
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DoctorScreen()),
+                );
+              },
+              child: Text('Doctores'),
+            ),
+            SizedBox(height: 20), // Espacio entre los botones
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PacienteScreen()),
+                );
+              },
+              child: Text('Pacientes'),
+            ),
+          ],
         ),
       ),
     );
