@@ -27,11 +27,53 @@ class PacienteScreen extends StatelessWidget {
               return ListTile(
                 title: Text(doctor['name']),
                 subtitle: Text(doctor['specialty']),
+                onTap: () {
+                  _navigateToCitaScreen(context, doctor.id, doctor['name']);
+                },
               );
             },
           );
         },
       ),
     );
+  }
+
+  void _navigateToCitaScreen(
+      BuildContext context, String doctorId, String doctorName) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            AgendarCitaScreen(doctorId: doctorId, doctorName: doctorName),
+      ),
+    );
+  }
+}
+
+class AgendarCitaScreen extends StatelessWidget {
+  final String doctorId;
+  final String doctorName;
+
+  AgendarCitaScreen({required this.doctorId, required this.doctorName});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Agendar Cita con $doctorName'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            _agendarCita(context);
+          },
+          child: Text('Agendar Cita'),
+        ),
+      ),
+    );
+  }
+
+  void _agendarCita(BuildContext context) {
+   
   }
 }
