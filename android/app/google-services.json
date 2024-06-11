@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "796478446037",
+    "project_id": "citasmedicas-fefa5",
+    "storage_bucket": "citasmedicas-fefa5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:796478446037:android:80768c30f68693e109855c",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACjOztQlxBdVqRUysdSRu8o7bkiEgALco"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
