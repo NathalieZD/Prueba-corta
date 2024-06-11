@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:prueba_2/Paginas/services/citas.dart';
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PacienteScreen extends StatelessWidget {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -28,7 +31,8 @@ class PacienteScreen extends StatelessWidget {
                 title: Text(doctor['name']),
                 subtitle: Text(doctor['specialty']),
                 onTap: () {
-                  _navigateToCitaScreen(context, doctor.id, doctor['name']);
+                  _navigateToAgendarCitaScreen(
+                      context, doctor.id, doctor['name']);
                 },
               );
             },
@@ -38,7 +42,7 @@ class PacienteScreen extends StatelessWidget {
     );
   }
 
-  void _navigateToCitaScreen(
+  void _navigateToAgendarCitaScreen(
       BuildContext context, String doctorId, String doctorName) {
     Navigator.push(
       context,
@@ -47,33 +51,5 @@ class PacienteScreen extends StatelessWidget {
             AgendarCitaScreen(doctorId: doctorId, doctorName: doctorName),
       ),
     );
-  }
-}
-
-class AgendarCitaScreen extends StatelessWidget {
-  final String doctorId;
-  final String doctorName;
-
-  AgendarCitaScreen({required this.doctorId, required this.doctorName});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Agendar Cita con $doctorName'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            _agendarCita(context);
-          },
-          child: Text('Agendar Cita'),
-        ),
-      ),
-    );
-  }
-
-  void _agendarCita(BuildContext context) {
-   
   }
 }
