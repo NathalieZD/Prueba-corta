@@ -172,18 +172,35 @@ class EditDoctorScreen extends StatelessWidget {
                     },
                     onSaved: (value) => _specialty = value,
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
-                        _firestore.collection('doctor').doc(docId).update({
-                          'name': _name,
-                          'specialty': _specialty,
-                        });
-                        Navigator.pop(context);
-                      }
-                    },
-                    child: Text('Actualizar'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            _formKey.currentState!.save();
+                            _firestore.collection('doctor').doc(docId).update({
+                              'name': _name,
+                              'specialty': _specialty,
+                            });
+                            Navigator.pop(context);
+                          }
+                        },
+                        child: Text('Actualizar'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  VerCitasScreen(doctorId: docId),
+                            ),
+                          );
+                        },
+                        child: Text('Ver Citas'),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -191,6 +208,60 @@ class EditDoctorScreen extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+}
+
+class VerCitasScreen extends StatelessWidget {
+  final String doctorId;
+
+  VerCitasScreen({required this.doctorId});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Citas Agendadas'),
+      ),
+      body: DoctorCitas(doctorId: doctorId),
+    );
+  }
+}
+
+class DoctorCitas extends StatelessWidget {
+  final String doctorId;
+
+  DoctorCitas({required this.doctorId});
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: FirebaseFirestore.instance
+          .collection('citas')
+          .where('doctor_id', isEqualTo: doctorId)
+          .snapshots(),
+      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        }
+        final citas = snapshot.data!.docs;
+        if (citas.isEmpty) {
+          return Center(child: Text('No hay citas agendadas para este doctor'));
+        }
+        return ListView.builder(
+          itemCount: citas.length,
+          itemBuilder: (context, index) {
+            final cita = citas[index];
+            return ListTile(
+              title: Text(cita['patient_name']),
+              subtitle: Text('Fecha: ${cita['appointment_date']}'),
+            );
+          },
+        );
+      },
     );
   }
 }
