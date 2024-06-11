@@ -8,7 +8,11 @@ class WelcomeScreen extends StatelessWidget {
         title: Text('Bienvenido'),
       ),
       body: Center(
-        child: Text('¡Registro exitoso! Bienvenido a la aplicación.'),
+        child: Text(
+          '¡Registro exitoso! Bienvenido a la aplicación.',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }

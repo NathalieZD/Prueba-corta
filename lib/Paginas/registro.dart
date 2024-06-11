@@ -50,7 +50,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/login');
+                  Navigator.pushReplacementNamed(context, '/home');
                 },
                 child: Text('¿Ya tienes una cuenta? Inicia sesión'),
               ),

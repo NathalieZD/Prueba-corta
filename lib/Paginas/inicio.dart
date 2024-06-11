@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Inicio de sesión exitoso: $_email')),
         );
-        // Aquí puedes redirigir al usuario a otra pantalla o mostrar un mensaje de éxito
+       
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error: ${e.toString()}')),
